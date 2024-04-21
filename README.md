@@ -9,28 +9,27 @@
         margin: 0;
         padding: 0;
         overflow: hidden;
+        background-color: black;
     }
 
     #stars, #stars2, #stars3 {
-        width: 1px;
-        height: 1px;
-        background: transparent;
+        width: 2px;
+        height: 2px;
+        background: #fff;
         position: fixed;
         top: 0;
     }
 
     #stars {
-        background: url('https://www.transparenttextures.com/patterns/8-bit-dreams.png');
+        left: 50%;
     }
 
     #stars2 {
-        background: url('https://www.transparenttextures.com/patterns/8-bit-dreams.png');
-        animation: animStar 50s linear infinite;
+        left: 25%;
     }
 
     #stars3 {
-        background: url('https://www.transparenttextures.com/patterns/8-bit-dreams.png');
-        animation: animStar 100s linear infinite;
+        left: 75%;
     }
 
     @keyframes animStar {
@@ -40,6 +39,18 @@
         to {
             transform: translateY(1000px) rotate(720deg);
         }
+    }
+
+    #stars {
+        animation: animStar 50s linear infinite;
+    }
+
+    #stars2 {
+        animation: animStar 100s linear infinite;
+    }
+
+    #stars3 {
+        animation: animStar 150s linear infinite;
     }
 </style>
 
