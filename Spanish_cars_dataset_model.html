@@ -14595,10 +14595,13 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[30]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[82]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="ch">#!pip install xgboost</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="ch">#!pip list</span>
+<span class="c1">#!pip install xgboost</span>
+<span class="c1">#!pip install --user scikit-learn</span>
+<span class="c1">#!pip install eli5</span>
 <span class="o">!</span>jupyter<span class="w"> </span>nbconvert<span class="w"> </span>--to<span class="w"> </span>html<span class="w"> </span>C:<span class="se">\U</span>sers<span class="se">\o</span>sama<span class="se">\S</span>panish_cars_dataset_model.ipynb<span class="w"> </span>--HTMLExporter.theme<span class="o">=</span>dark
 </pre></div>
 
@@ -14622,7 +14625,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
 <pre>[NbConvertApp] Converting notebook C:\Users\osama\Spanish_cars_dataset_model.ipynb to html
-[NbConvertApp] Writing 688699 bytes to C:\Users\osama\Spanish_cars_dataset_model.html
+[NbConvertApp] Writing 660296 bytes to C:\Users\osama\Spanish_cars_dataset_model.html
 </pre>
 </div>
 </div>
@@ -14636,19 +14639,38 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[15]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[107]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">mean_absolute_error</span><span class="p">,</span> <span class="n">r2_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.inspection</span> <span class="kn">import</span> <span class="n">permutation_importance</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">xgboost</span> <span class="kn">import</span> <span class="n">XGBRegressor</span>
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_absolute_error</span>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">OneHotEncoder</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">'display.max_columns'</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">r</span><span class="s2">"D:\spanish_cars_testing.csv"</span><span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[108]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">to_drop</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"car_price"</span><span class="p">]</span>
 </pre></div>
 
      </div>
@@ -14661,7 +14683,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[16]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[109]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
@@ -14682,7 +14704,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[16]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[109]:</div>
 
 
 
@@ -14805,7 +14827,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[17]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[110]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
@@ -14826,7 +14848,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[17]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[110]:</div>
 
 
 
@@ -14857,7 +14879,7 @@ dtype: int64</pre>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[18]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[111]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span>
@@ -14878,7 +14900,7 @@ dtype: int64</pre>
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[18]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[111]:</div>
 
 
 
@@ -14900,7 +14922,7 @@ dtype: int64</pre>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[19]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[112]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">color</span><span class="o">.</span><span class="n">unique</span><span class="p">(),</span> <span class="n">df</span><span class="o">.</span><span class="n">price_rating</span><span class="o">.</span><span class="n">unique</span><span class="p">(),</span> <span class="n">df</span><span class="o">.</span><span class="n">fuel_type</span><span class="o">.</span><span class="n">unique</span><span class="p">(),</span> <span class="n">df</span><span class="o">.</span><span class="n">make</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
@@ -14944,7 +14966,7 @@ dtype: int64</pre>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[20]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[113]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">OH</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s1">'ignore'</span><span class="p">)</span>
@@ -14995,7 +15017,7 @@ dtype: int64</pre>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[21]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[114]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Importing a new dataframe for testing</span>
@@ -15013,10 +15035,10 @@ dtype: int64</pre>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[22]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[115]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">mi_to_rating</span> <span class="o">&gt;</span> <span class="mi">1000000</span><span class="p">]</span>
 </pre></div>
 
      </div>
@@ -15034,484 +15056,25 @@ dtype: int64</pre>
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[22]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 
 
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">AttributeError</span>                            Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">~\AppData\Local\Temp\ipykernel_18996\1036680401.py</span> in <span class="ansi-cyan-fg">?</span><span class="ansi-blue-intense-fg ansi-bold">()</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>df<span class="ansi-yellow-intense-fg ansi-bold">[</span>df<span class="ansi-yellow-intense-fg ansi-bold">.</span>mi_to_rating <span class="ansi-yellow-intense-fg ansi-bold">&gt;</span> <span class="ansi-cyan-intense-fg ansi-bold">1000000</span><span class="ansi-yellow-intense-fg ansi-bold">]</span>
 
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
+<span class="ansi-green-intense-fg ansi-bold">C:\ProgramData\anaconda3\Lib\site-packages\pandas\core\generic.py</span> in <span class="ansi-cyan-fg">?</span><span class="ansi-blue-intense-fg ansi-bold">(self, name)</span>
+<span class="ansi-green-fg">   5985</span>             <span class="ansi-green-intense-fg ansi-bold">and</span> name <span class="ansi-green-intense-fg ansi-bold">not</span> <span class="ansi-green-intense-fg ansi-bold">in</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_accessors
+<span class="ansi-green-fg">   5986</span>             <span class="ansi-green-intense-fg ansi-bold">and</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_info_axis<span class="ansi-yellow-intense-fg ansi-bold">.</span>_can_hold_identifiers_and_holds_name<span class="ansi-yellow-intense-fg ansi-bold">(</span>name<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">   5987</span>         ):
+<span class="ansi-green-fg">   5988</span>             <span class="ansi-green-intense-fg ansi-bold">return</span> self<span class="ansi-yellow-intense-fg ansi-bold">[</span>name<span class="ansi-yellow-intense-fg ansi-bold">]</span>
+<span class="ansi-green-intense-fg ansi-bold">-&gt; 5989</span><span class="ansi-yellow-intense-fg ansi-bold">         </span><span class="ansi-green-intense-fg ansi-bold">return</span> object<span class="ansi-yellow-intense-fg ansi-bold">.</span>__getattribute__<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">,</span> name<span class="ansi-yellow-intense-fg ansi-bold">)</span>
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>car_price</th>
-      <th>price_rating</th>
-      <th>mi</th>
-      <th>power</th>
-      <th>make_Audi</th>
-      <th>make_Citroen</th>
-      <th>make_Fiat</th>
-      <th>make_Ford</th>
-      <th>make_Hyundai</th>
-      <th>make_Jeep</th>
-      <th>make_Kia</th>
-      <th>make_Mazda</th>
-      <th>make_Mitsubishi</th>
-      <th>make_Nissan</th>
-      <th>make_Opel</th>
-      <th>make_Peugeot</th>
-      <th>make_Seat</th>
-      <th>make_Volkswagen</th>
-      <th>model_2008</th>
-      <th>model_500</th>
-      <th>model_5008</th>
-      <th>model_C4</th>
-      <th>model_Cx-3</th>
-      <th>model_Eclipse Cross</th>
-      <th>model_Ioniq</th>
-      <th>model_Leon</th>
-      <th>model_Micra</th>
-      <th>model_Mokka</th>
-      <th>model_Passat</th>
-      <th>model_Puma</th>
-      <th>model_Q5</th>
-      <th>model_Qashqai</th>
-      <th>model_Renegade</th>
-      <th>model_Stonic</th>
-      <th>model_T-Cross</th>
-      <th>model_X-Trail</th>
-      <th>trim_1.0</th>
-      <th>trim_1.0 EcoBoost</th>
-      <th>trim_1.0 T-GDi</th>
-      <th>trim_1.0 tsi</th>
-      <th>trim_1.2</th>
-      <th>trim_1.2 puretech</th>
-      <th>trim_1.3</th>
-      <th>trim_1.3 DIG-T</th>
-      <th>trim_1.4</th>
-      <th>trim_1.5</th>
-      <th>trim_1.5 bluehdi</th>
-      <th>trim_1.6</th>
-      <th>trim_1.6 BlueHDI</th>
-      <th>trim_1.6 Limited</th>
-      <th>trim_2.0</th>
-      <th>trim_2.0 35 TDI quattro</th>
-      <th>fuel_type_Diesel</th>
-      <th>fuel_type_Electric</th>
-      <th>fuel_type_Hybrid</th>
-      <th>fuel_type_Petrol</th>
-      <th>body_type_Crossover</th>
-      <th>body_type_Hatchback</th>
-      <th>body_type_Mini</th>
-      <th>body_type_Mpv</th>
-      <th>body_type_Sedan</th>
-      <th>body_type_Suv</th>
-      <th>body_type_Wagon</th>
-      <th>color_Black</th>
-      <th>color_Blue</th>
-      <th>color_Gray</th>
-      <th>color_Orange</th>
-      <th>color_Red</th>
-      <th>color_Silver</th>
-      <th>color_White</th>
-      <th>transmissions_Automatic</th>
-      <th>transmissions_Manual</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>21900</td>
-      <td>3</td>
-      <td>100</td>
-      <td>12</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>19500</td>
-      <td>4</td>
-      <td>102</td>
-      <td>1</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>12595</td>
-      <td>3</td>
-      <td>110</td>
-      <td>70</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>34990</td>
-      <td>1</td>
-      <td>130</td>
-      <td>20</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>14900</td>
-      <td>2</td>
-      <td>92</td>
-      <td>24</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>1.0</td>
-    </tr>
-  </tbody>
-</table>
+<span class="ansi-red-intense-fg ansi-bold">AttributeError</span>: &#39;DataFrame&#39; object has no attribute &#39;mi_to_rating&#39;</pre>
 </div>
-</div>
-
 </div>
 
 </div>
@@ -15523,10 +15086,11 @@ dtype: int64</pre>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[23]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">correlated</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+<span class="n">correlated</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">"D://correlations_cars.csv"</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -15534,12 +15098,12 @@ dtype: int64</pre>
 </div>
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[24]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">correlated</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -15550,198 +15114,41 @@ dtype: int64</pre>
 </div>
 </div>
 
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">xgboost</span> <span class="kn">import</span> <span class="n">XGBRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
+<span class="k">def</span> <span class="nf">find_best_params</span><span class="p">(</span><span class="n">trainer</span><span class="p">,</span> <span class="n">tester</span><span class="p">):</span>
+    <span class="c1"># Define hyperparameters for tuning</span>
+    <span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">'learning_rate'</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.45</span><span class="p">],</span>
+        <span class="s1">'max_depth'</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
+        <span class="s1">'n_estimators'</span><span class="p">:</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">350</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">450</span><span class="p">]</span>
+    <span class="p">}</span>
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[24]:</div>
+    <span class="c1"># Initialize XGBRegressor</span>
+    <span class="n">xgb</span> <span class="o">=</span> <span class="n">XGBRegressor</span><span class="p">()</span>
 
+    <span class="c1"># Perform GridSearchCV for hyperparameter tuning</span>
+    <span class="n">grid_search</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">estimator</span><span class="o">=</span><span class="n">xgb</span><span class="p">,</span> <span class="n">param_grid</span><span class="o">=</span><span class="n">param_grid</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">grid_search</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">trainer</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">to_drop</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">trainer</span><span class="o">.</span><span class="n">car_price</span><span class="p">)</span>
+    
+    <span class="c1"># Print best parameters</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Best Parameters:"</span><span class="p">,</span> <span class="n">grid_search</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">grid_search</span><span class="o">.</span><span class="n">best_params_</span>
+</pre></div>
 
-
-<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>car_price</th>
-      <th>price_rating</th>
-      <th>mi</th>
-      <th>power</th>
-      <th>make_Audi</th>
-      <th>make_Citroen</th>
-      <th>make_Fiat</th>
-      <th>make_Ford</th>
-      <th>make_Hyundai</th>
-      <th>make_Jeep</th>
-      <th>make_Kia</th>
-      <th>make_Mazda</th>
-      <th>make_Mitsubishi</th>
-      <th>make_Nissan</th>
-      <th>make_Opel</th>
-      <th>make_Peugeot</th>
-      <th>make_Seat</th>
-      <th>make_Volkswagen</th>
-      <th>model_2008</th>
-      <th>model_500</th>
-      <th>model_5008</th>
-      <th>model_C4</th>
-      <th>model_Cx-3</th>
-      <th>model_Eclipse Cross</th>
-      <th>model_Ioniq</th>
-      <th>model_Leon</th>
-      <th>model_Micra</th>
-      <th>model_Mokka</th>
-      <th>model_Passat</th>
-      <th>model_Puma</th>
-      <th>model_Q5</th>
-      <th>model_Qashqai</th>
-      <th>model_Renegade</th>
-      <th>model_Stonic</th>
-      <th>model_T-Cross</th>
-      <th>model_X-Trail</th>
-      <th>trim_1.0</th>
-      <th>trim_1.0 EcoBoost</th>
-      <th>trim_1.0 T-GDi</th>
-      <th>trim_1.0 tsi</th>
-      <th>trim_1.2</th>
-      <th>trim_1.2 puretech</th>
-      <th>trim_1.3</th>
-      <th>trim_1.3 DIG-T</th>
-      <th>trim_1.4</th>
-      <th>trim_1.5</th>
-      <th>trim_1.5 bluehdi</th>
-      <th>trim_1.6</th>
-      <th>trim_1.6 BlueHDI</th>
-      <th>trim_1.6 Limited</th>
-      <th>trim_2.0</th>
-      <th>trim_2.0 35 TDI quattro</th>
-      <th>fuel_type_Diesel</th>
-      <th>fuel_type_Electric</th>
-      <th>fuel_type_Hybrid</th>
-      <th>fuel_type_Petrol</th>
-      <th>body_type_Crossover</th>
-      <th>body_type_Hatchback</th>
-      <th>body_type_Mini</th>
-      <th>body_type_Mpv</th>
-      <th>body_type_Sedan</th>
-      <th>body_type_Suv</th>
-      <th>body_type_Wagon</th>
-      <th>color_Black</th>
-      <th>color_Blue</th>
-      <th>color_Gray</th>
-      <th>color_Orange</th>
-      <th>color_Red</th>
-      <th>color_Silver</th>
-      <th>color_White</th>
-      <th>transmissions_Automatic</th>
-      <th>transmissions_Manual</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>car_price</th>
-      <td>1.0</td>
-      <td>0.213058</td>
-      <td>0.581588</td>
-      <td>-0.116766</td>
-      <td>0.317113</td>
-      <td>-0.030523</td>
-      <td>-0.378593</td>
-      <td>-0.053853</td>
-      <td>-0.001686</td>
-      <td>0.050626</td>
-      <td>-0.114715</td>
-      <td>-0.120366</td>
-      <td>-0.108918</td>
-      <td>0.268976</td>
-      <td>0.039034</td>
-      <td>-0.104123</td>
-      <td>0.183942</td>
-      <td>-0.073336</td>
-      <td>-0.335166</td>
-      <td>-0.378593</td>
-      <td>0.414588</td>
-      <td>-0.030523</td>
-      <td>-0.120366</td>
-      <td>-0.108918</td>
-      <td>-0.001686</td>
-      <td>0.183942</td>
-      <td>-0.163839</td>
-      <td>0.039034</td>
-      <td>-0.132104</td>
-      <td>-0.053853</td>
-      <td>0.317113</td>
-      <td>0.382408</td>
-      <td>0.050626</td>
-      <td>-0.114715</td>
-      <td>0.030194</td>
-      <td>0.039034</td>
-      <td>-0.163839</td>
-      <td>-0.053853</td>
-      <td>-0.114715</td>
-      <td>0.030194</td>
-      <td>0.039034</td>
-      <td>-0.084219</td>
-      <td>0.039034</td>
-      <td>0.382408</td>
-      <td>-0.378593</td>
-      <td>-0.108918</td>
-      <td>0.118434</td>
-      <td>-0.001686</td>
-      <td>-0.259623</td>
-      <td>0.050626</td>
-      <td>-0.041003</td>
-      <td>0.317113</td>
-      <td>0.403626</td>
-      <td>-0.308232</td>
-      <td>0.249337</td>
-      <td>-0.316078</td>
-      <td>-0.155919</td>
-      <td>0.183942</td>
-      <td>-0.390346</td>
-      <td>0.414588</td>
-      <td>-0.023178</td>
-      <td>0.256291</td>
-      <td>-0.132104</td>
-      <td>-0.160931</td>
-      <td>0.271105</td>
-      <td>0.05184</td>
-      <td>-0.294618</td>
-      <td>-0.169502</td>
-      <td>0.011107</td>
-      <td>0.053465</td>
-      <td>0.501628</td>
-      <td>-0.501628</td>
-    </tr>
-  </tbody>
-</table>
+     </div>
 </div>
 </div>
-
-</div>
-
-</div>
-
 </div>
 
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
@@ -15749,18 +15156,94 @@ dtype: int64</pre>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[25]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[116]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#We create a function that creates a model and trains it for easy access</span>
-<span class="k">def</span> <span class="nf">train_model</span><span class="p">(</span><span class="n">trainer</span><span class="p">,</span> <span class="n">tester</span><span class="p">):</span>
-    <span class="n">my_model</span> <span class="o">=</span> <span class="n">XGBRegressor</span><span class="p">()</span>
-    <span class="n">my_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">trainer</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">"car_price"</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">),</span> <span class="n">trainer</span><span class="o">.</span><span class="n">car_price</span><span class="p">,</span> 
-                <span class="n">early_stopping_rounds</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>  <span class="c1"># Stop if the validation score doesn't improve for 10 rounds</span>
-                <span class="n">eval_metric</span><span class="o">=</span><span class="s2">"mae"</span><span class="p">,</span>          <span class="c1"># Use Mean Absolute Error for evaluation</span>
-                <span class="n">eval_set</span><span class="o">=</span><span class="p">[(</span><span class="n">tester</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">"car_price"</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">),</span> <span class="n">tester</span><span class="o">.</span><span class="n">car_price</span><span class="p">)],</span>  <span class="c1"># Validation set</span>
-                <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">train_model</span><span class="p">(</span><span class="n">trainer</span><span class="p">,</span> <span class="n">tester</span><span class="p">,</span><span class="n">params</span><span class="p">):</span>
+    <span class="c1"># Initialize XGBRegressor with best parameters</span>
+    <span class="n">my_model</span> <span class="o">=</span> <span class="n">XGBRegressor</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+
+    <span class="c1"># Fit the model</span>
+    <span class="n">my_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">trainer</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">to_drop</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">trainer</span><span class="o">.</span><span class="n">car_price</span><span class="p">,</span>
+                  <span class="n">early_stopping_rounds</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                  <span class="n">eval_metric</span><span class="o">=</span><span class="s2">"mae"</span><span class="p">,</span>
+                  <span class="n">eval_set</span><span class="o">=</span><span class="p">[(</span><span class="n">tester</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">to_drop</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">tester</span><span class="o">.</span><span class="n">car_price</span><span class="p">)],</span>
+                  <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">my_model</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[117]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">find_dropable_columns</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">permutation_importance</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">testing_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">to_drop</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">),</span> <span class="n">testing_df</span><span class="o">.</span><span class="n">car_price</span><span class="p">,</span> <span class="n">n_repeats</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Create a list of tuples containing feature names and their importance scores</span>
+    <span class="n">feature_importance</span> <span class="o">=</span> <span class="p">[(</span><span class="n">feature</span><span class="p">,</span> <span class="n">importance</span><span class="p">)</span> <span class="k">for</span> <span class="n">feature</span><span class="p">,</span> <span class="n">importance</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">testing_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">to_drop</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">importances_mean</span><span class="p">)]</span> <span class="c1">#I love you chatgpt(he made this line, wasnt struggling with it, just wanted to save some time!!!)</span>
+    
+    <span class="c1">#for loop to find all features that have got a low importance((-inf &lt; x &lt; 0])and insert them on the droplist(they wont be used)</span>
+    <span class="k">for</span> <span class="n">feature</span><span class="p">,</span> <span class="n">importance</span> <span class="ow">in</span> <span class="n">feature_importance</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">importance</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">to_drop</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">to_drop</span><span class="p">),</span> <span class="n">feature</span><span class="p">)</span>
+    
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[118]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">evaluate_model</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+    <span class="c1"># Predictions</span>
+    <span class="n">data_x</span> <span class="o">=</span> <span class="n">testing_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">to_drop</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">data_y</span> <span class="o">=</span> <span class="n">testing_df</span><span class="o">.</span><span class="n">car_price</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">data_x</span><span class="p">)</span>
+
+    <span class="c1"># Calculate Mean Squared Error</span>
+    <span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">data_y</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Mean Squared Error:"</span><span class="p">,</span> <span class="n">mse</span><span class="p">)</span>
+
+    <span class="c1"># Calculate Mean Absolute Error</span>
+    <span class="n">mae</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">data_y</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Mean Absolute Error:"</span><span class="p">,</span> <span class="n">mae</span><span class="p">)</span>
+
+    <span class="c1"># Calculate R-squared</span>
+    <span class="n">r2</span> <span class="o">=</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">data_y</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"R-squared:"</span><span class="p">,</span> <span class="n">r2</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[119]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">testing_df</span> <span class="o">=</span> <span class="n">structure_df_data</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">r</span><span class="s2">"D:\spanish_cars.csv"</span><span class="p">),</span> <span class="kc">False</span><span class="p">)</span> <span class="c1">#Importing a new dataframe for testing</span>
 </pre></div>
 
      </div>
@@ -15773,11 +15256,13 @@ dtype: int64</pre>
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[29]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[120]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">testing_df</span> <span class="o">=</span> <span class="n">structure_df_data</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">r</span><span class="s2">"D:\spanish_cars.csv"</span><span class="p">),</span> <span class="kc">False</span><span class="p">)</span> <span class="c1">#Importing a new dataframe for testing</span>
-<span class="n">my_model</span> <span class="o">=</span> <span class="n">train_model</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">testing_df</span><span class="p">)</span> <span class="c1">#Training a new model using 4500 as training data and 3000 rows as testing data</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">best_params</span> <span class="o">=</span> <span class="n">find_best_params</span><span class="p">(</span><span class="n">testing_df</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span> <span class="c1">#Training a new model using 4500 as training data and 3000 rows as testing data</span>
+<span class="n">my_model</span> <span class="o">=</span> <span class="n">train_model</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">testing_df</span><span class="p">,</span><span class="n">best_params</span><span class="p">)</span>
+
+<span class="n">evaluate_model</span><span class="p">(</span><span class="n">my_model</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -15799,25 +15284,8 @@ dtype: int64</pre>
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>[0]	validation_0-mae:4104.14447
-[1]	validation_0-mae:3500.11462
-[2]	validation_0-mae:3204.75918
-[3]	validation_0-mae:3064.71497
-[4]	validation_0-mae:2976.96182
-[5]	validation_0-mae:2916.84769
-[6]	validation_0-mae:2873.75319
-[7]	validation_0-mae:2835.66602
-[8]	validation_0-mae:2822.14209
-[9]	validation_0-mae:2812.87666
-[10]	validation_0-mae:2806.24180
-[11]	validation_0-mae:2801.13652
-[12]	validation_0-mae:2797.55257
-[13]	validation_0-mae:2795.03643
-[14]	validation_0-mae:2793.27004
-[15]	validation_0-mae:2792.02995
-[16]	validation_0-mae:2791.15933
-[17]	validation_0-mae:2790.54801
-[18]	validation_0-mae:2790.16701
+<pre>Fitting 3 folds for each of 720 candidates, totalling 2160 fits
+Best Parameters: {&#39;learning_rate&#39;: 0.45, &#39;max_depth&#39;: 6, &#39;n_estimators&#39;: 50}
 </pre>
 </div>
 </div>
@@ -15844,87 +15312,9 @@ C:\Users\osama\AppData\Roaming\Python\Python311\site-packages\xgboost\sklearn.py
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>[19]	validation_0-mae:2789.86715
-[20]	validation_0-mae:2789.65656
-[21]	validation_0-mae:2789.50874
-[22]	validation_0-mae:2789.40483
-[23]	validation_0-mae:2789.33213
-[24]	validation_0-mae:2789.28094
-[25]	validation_0-mae:2789.24510
-[26]	validation_0-mae:2789.21978
-[27]	validation_0-mae:2789.20195
-[28]	validation_0-mae:2789.18319
-[29]	validation_0-mae:2789.17812
-[30]	validation_0-mae:2789.17205
-[31]	validation_0-mae:2789.16579
-[32]	validation_0-mae:2789.16112
-[33]	validation_0-mae:2789.15910
-[34]	validation_0-mae:2789.15690
-[35]	validation_0-mae:2789.15636
-[36]	validation_0-mae:2789.15441
-[37]	validation_0-mae:2789.15324
-[38]	validation_0-mae:2789.15252
-[39]	validation_0-mae:2789.15210
-[40]	validation_0-mae:2789.15184
-[41]	validation_0-mae:2789.15158
-[42]	validation_0-mae:2789.15160
-[43]	validation_0-mae:2789.15160
-[44]	validation_0-mae:2789.15161
-[45]	validation_0-mae:2789.15160
-[46]	validation_0-mae:2789.15155
-[47]	validation_0-mae:2789.15169
-[48]	validation_0-mae:2789.15166
-[49]	validation_0-mae:2789.15163
-[50]	validation_0-mae:2789.15160
-[51]	validation_0-mae:2789.15156
-[52]	validation_0-mae:2789.15153
-[53]	validation_0-mae:2789.15150
-[54]	validation_0-mae:2789.15146
-[55]	validation_0-mae:2789.15143
-[56]	validation_0-mae:2789.15140
-[57]	validation_0-mae:2789.15137
-[58]	validation_0-mae:2789.15133
-[59]	validation_0-mae:2789.15130
-[60]	validation_0-mae:2789.15127
-[61]	validation_0-mae:2789.15124
-[62]	validation_0-mae:2789.15120
-[63]	validation_0-mae:2789.15117
-[64]	validation_0-mae:2789.15114
-[65]	validation_0-mae:2789.15111
-[66]	validation_0-mae:2789.15107
-[67]	validation_0-mae:2789.15104
-[68]	validation_0-mae:2789.15101
-[69]	validation_0-mae:2789.15098
-[70]	validation_0-mae:2789.15094
-[71]	validation_0-mae:2789.15091
-[72]	validation_0-mae:2789.15088
-[73]	validation_0-mae:2789.15085
-[74]	validation_0-mae:2789.15081
-[75]	validation_0-mae:2789.15078
-[76]	validation_0-mae:2789.15075
-[77]	validation_0-mae:2789.15072
-[78]	validation_0-mae:2789.15068
-[79]	validation_0-mae:2789.15065
-[80]	validation_0-mae:2789.15062
-[81]	validation_0-mae:2789.15059
-[82]	validation_0-mae:2789.15055
-[83]	validation_0-mae:2789.15052
-[84]	validation_0-mae:2789.15049
-[85]	validation_0-mae:2789.15046
-[86]	validation_0-mae:2789.15042
-[87]	validation_0-mae:2789.15039
-[88]	validation_0-mae:2789.15036
-[89]	validation_0-mae:2789.15033
-[90]	validation_0-mae:2789.15029
-[91]	validation_0-mae:2789.15026
-[92]	validation_0-mae:2789.15023
-[93]	validation_0-mae:2789.15020
-[94]	validation_0-mae:2789.15016
-[95]	validation_0-mae:2789.15013
-[96]	validation_0-mae:2789.15010
-[97]	validation_0-mae:2789.15007
-[98]	validation_0-mae:2789.15003
-[99]	validation_0-mae:2789.15000
+<pre>Mean Squared Error: 16124891.13874356
+Mean Absolute Error: 2720.2004231770834
+R-squared: 0.48914645552882763
 </pre>
 </div>
 </div>
@@ -15938,7 +15328,7 @@ C:\Users\osama\AppData\Roaming\Python\Python311\site-packages\xgboost\sklearn.py
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[29]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[121]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">testing_df</span>
@@ -15959,7 +15349,7 @@ C:\Users\osama\AppData\Roaming\Python\Python311\site-packages\xgboost\sklearn.py
 <div class="jp-OutputArea-child">
 
     
-    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[29]:</div>
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[121]:</div>
 
 
 
@@ -15992,7 +15382,58 @@ C:\Users\osama\AppData\Roaming\Python\Python311\site-packages\xgboost\sklearn.py
       <th>make_Ford</th>
       <th>make_Hyundai</th>
       <th>make_Jeep</th>
-      <th>...</th>
+      <th>make_Kia</th>
+      <th>make_Mazda</th>
+      <th>make_Mitsubishi</th>
+      <th>make_Nissan</th>
+      <th>make_Opel</th>
+      <th>make_Peugeot</th>
+      <th>make_Seat</th>
+      <th>make_Volkswagen</th>
+      <th>model_2008</th>
+      <th>model_500</th>
+      <th>model_5008</th>
+      <th>model_C4</th>
+      <th>model_Cx-3</th>
+      <th>model_Eclipse Cross</th>
+      <th>model_Ioniq</th>
+      <th>model_Leon</th>
+      <th>model_Micra</th>
+      <th>model_Mokka</th>
+      <th>model_Passat</th>
+      <th>model_Puma</th>
+      <th>model_Q5</th>
+      <th>model_Qashqai</th>
+      <th>model_Renegade</th>
+      <th>model_Stonic</th>
+      <th>model_T-Cross</th>
+      <th>model_X-Trail</th>
+      <th>trim_1.0</th>
+      <th>trim_1.0 EcoBoost</th>
+      <th>trim_1.0 T-GDi</th>
+      <th>trim_1.0 tsi</th>
+      <th>trim_1.2</th>
+      <th>trim_1.2 puretech</th>
+      <th>trim_1.3</th>
+      <th>trim_1.3 DIG-T</th>
+      <th>trim_1.4</th>
+      <th>trim_1.5</th>
+      <th>trim_1.5 bluehdi</th>
+      <th>trim_1.6</th>
+      <th>trim_1.6 BlueHDI</th>
+      <th>trim_1.6 Limited</th>
+      <th>trim_2.0</th>
+      <th>trim_2.0 35 TDI quattro</th>
+      <th>fuel_type_Diesel</th>
+      <th>fuel_type_Electric</th>
+      <th>fuel_type_Hybrid</th>
+      <th>fuel_type_Petrol</th>
+      <th>body_type_Crossover</th>
+      <th>body_type_Hatchback</th>
+      <th>body_type_Mini</th>
+      <th>body_type_Mpv</th>
+      <th>body_type_Sedan</th>
+      <th>body_type_Suv</th>
       <th>body_type_Wagon</th>
       <th>color_Black</th>
       <th>color_Blue</th>
@@ -16018,7 +15459,58 @@ C:\Users\osama\AppData\Roaming\Python\Python311\site-packages\xgboost\sklearn.py
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
@@ -16042,7 +15534,58 @@ C:\Users\osama\AppData\Roaming\Python\Python311\site-packages\xgboost\sklearn.py
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
@@ -16066,7 +15609,58 @@ C:\Users\osama\AppData\Roaming\Python\Python311\site-packages\xgboost\sklearn.py
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
@@ -16090,7 +15684,58 @@ C:\Users\osama\AppData\Roaming\Python\Python311\site-packages\xgboost\sklearn.py
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
@@ -16114,7 +15759,58 @@ C:\Users\osama\AppData\Roaming\Python\Python311\site-packages\xgboost\sklearn.py
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>1.0</td>
@@ -16128,6 +15824,57 @@ C:\Users\osama\AppData\Roaming\Python\Python311\site-packages\xgboost\sklearn.py
     </tr>
     <tr>
       <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
       <td>...</td>
       <td>...</td>
       <td>...</td>
@@ -16162,7 +15909,58 @@ C:\Users\osama\AppData\Roaming\Python\Python311\site-packages\xgboost\sklearn.py
       <td>0.0</td>
       <td>1.0</td>
       <td>0.0</td>
-      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
@@ -16186,7 +15984,58 @@ C:\Users\osama\AppData\Roaming\Python\Python311\site-packages\xgboost\sklearn.py
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
@@ -16210,7 +16059,58 @@ C:\Users\osama\AppData\Roaming\Python\Python311\site-packages\xgboost\sklearn.py
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
@@ -16234,7 +16134,58 @@ C:\Users\osama\AppData\Roaming\Python\Python311\site-packages\xgboost\sklearn.py
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
@@ -16258,7 +16209,58 @@ C:\Users\osama\AppData\Roaming\Python\Python311\site-packages\xgboost\sklearn.py
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>...</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
       <td>0.0</td>
@@ -16287,13 +16289,15 @@ C:\Users\osama\AppData\Roaming\Python\Python311\site-packages\xgboost\sklearn.py
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[30]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[122]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Getting the mean absoloute error (|prices - predicted_prices| / number_of_predictions)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">find_dropable_columns</span><span class="p">(</span><span class="n">my_model</span><span class="p">)</span>
 
-<span class="n">predictions</span> <span class="o">=</span> <span class="n">my_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">testing_df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">"car_price"</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Mean Absolute Error: "</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">testing_df</span><span class="o">.</span><span class="n">car_price</span><span class="p">)))</span>
+<span class="n">best_params_2</span> <span class="o">=</span> <span class="n">find_best_params</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">testing_df</span><span class="p">)</span> <span class="c1">#Training a new model using 4500 as training data and 3000 rows as testing data</span>
+
+<span class="n">my_model_2</span> <span class="o">=</span> <span class="n">train_model</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">testing_df</span><span class="p">,</span><span class="n">best_params_2</span><span class="p">)</span>
+<span class="n">evaluate_model</span><span class="p">(</span><span class="n">my_model_2</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -16315,7 +16319,26 @@ C:\Users\osama\AppData\Roaming\Python\Python311\site-packages\xgboost\sklearn.py
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Mean Absolute Error: 2789.15
+<pre>Fitting 3 folds for each of 720 candidates, totalling 2160 fits
+Best Parameters: {&#39;learning_rate&#39;: 0.35, &#39;max_depth&#39;: 4, &#39;n_estimators&#39;: 100}
+Mean Squared Error: 14316409.20668602
+Mean Absolute Error: 2324.2033203125
+R-squared: 0.5464410690027673
+</pre>
+</div>
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
+<pre>C:\Users\osama\AppData\Roaming\Python\Python311\site-packages\xgboost\sklearn.py:889: UserWarning: `eval_metric` in `fit` method is deprecated for better compatibility with scikit-learn, use `eval_metric` in constructor or`set_params` instead.
+  warnings.warn(
+C:\Users\osama\AppData\Roaming\Python\Python311\site-packages\xgboost\sklearn.py:889: UserWarning: `early_stopping_rounds` in `fit` method is deprecated for better compatibility with scikit-learn, use `early_stopping_rounds` in constructor or`set_params` instead.
+  warnings.warn(
 </pre>
 </div>
 </div>
@@ -16324,51 +16347,20 @@ C:\Users\osama\AppData\Roaming\Python\Python311\site-packages\xgboost\sklearn.py
 
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[32]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Finding out the average deviance from the correct value</span>
-
-<span class="n">absolute_errors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">predictions</span> <span class="o">-</span> <span class="n">testing_df</span><span class="o">.</span><span class="n">car_price</span><span class="p">)</span>
-<span class="n">relative_absolute_errors</span> <span class="o">=</span> <span class="n">absolute_errors</span> <span class="o">/</span> <span class="n">testing_df</span><span class="o">.</span><span class="n">car_price</span>
-<span class="n">mrape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">relative_absolute_errors</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>  <span class="c1"># Multiply by 100 to get percentage</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Mean Relative Absolute Percentage Error: </span><span class="si">{:.2f}</span><span class="s2">%"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mrape</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Outstanding results"</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 
      </div>
 </div>
 </div>
-</div>
-
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-
-
-<div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Mean Relative Absolute Percentage Error: 17.53%
-Outstanding results
-</pre>
-</div>
-</div>
-
-</div>
-
 </div>
 
 </div>

@@ -32,6 +32,8 @@
                     <h3 onclick="toggleProject('project1')">Second-hand Car Price Predictor <span id="toggleIcon-project1">▼</span> <small>(click here for details)</small></h3> 
 					<p>Built an algorithm that scrapped data from the website <a href="https://www.ooyyo.com/spain" target="_blank">Ooyyo</a>, developed an algorithm to predict the price of a car (mean error of 17%), and conducted a small study to identify trends.</p>
                     <div id="projectContent-project1" style="display: none;">
+						Python was used for this whole project, specifically jupyter notebooks.<br>
+					
                         <p><b>This project had 3 phases:</b></p>
 						<ul>
 							<li> · Scrapping off the data</li>
@@ -110,10 +112,13 @@
 						
 						<br>
 						<b>Building a predictive model with xgboost</b> <br>
-						This part has 3 steps:<br>
+						This part has 5 steps:<br>
 						 · Cleaning the Data<br>
 						 · Encoding the Data<br>
+						 · Finding out the best parameters<br>
 						 · Traning the model<br>
+						 · Permutation importance<br>
+						 · Feature engenieering<br>
 						 
 						 Cleaning the data was easy, I just had to check for any missing values.<br>
 						 After that I just had to check for any input that wasnt within its category<br>
@@ -128,22 +133,42 @@
 						 Firstly, I had to decide which columns would be encoded, then which kind of encoding for which.<br>
 						 At the end I decided to use one-hotspot encoding for all columns except for the price rating, I used a normal encoding for that one.<br><br>
 						 
-						 At last, I just had to train the program. I ran the data scrapper algorythm 500 times, resulting on 7500 rows of data.<br>
+						 Finding out the best parameters took me quite some time, not because I struggled, but because of computational power.<br>
+						 The first step was to create a parameter grid, this grid had 3 features each one with 10 unique values.<br>
+						 After that we would create an xgboost and then fit it until we found the best combination for the 3 features(this was not done by hand, rather by code).<br>
+						 There were over 3000 possible combinations, so that is the reason to why did it take so much time.
+						 
+						 At last, I just had to train the program with the best parameters. I ran the data scrapper algorythm 500 times, resulting on 7500 rows of data.<br>
 						 Then it was divided between a training dataset(4500 rows) and a testing dataset(3000 rows).<br>
-						 After that I just inputed the two datasets and trained it.<br><br>
+						 After that I just inputed the two datasets and trained it.<br>
+						 <br>
+						 The first iteration of the model gave me:<br>
+						 Mean Absolute Error: 2720.2004231770834<br>
+						 R-squared: 0.48914645552882763<br>
+						 This means that the model could explain 48% of the ups and down of the variables.<br>
+						 Aswell as on average being off the correct value for 2720 EUs.<br>
+						 <br>
+						 
+						 <b>Permutation importance:<b><br>
+						 The permutation importance is a technique.<br>
+						 It is used to know how important some features are for the model, like the color of the car.<br>
+						 We use it to know which features should not be included when creating the model.<br><br>
+						 
+						 On this case I used this technique inside of a function that would find out all the features<br>
+						 that had less or where 0 of importance for the model and inserted them on a list.<br>
+						 After that I retrained the model without using the features from the previous list,<br>
 						 
 						 
-						 <b>Small note on how does the XGBOOST machine learning model works:</b><br>
-						 This model trains a random forest, then it testes the random forest with the test values.<br>
-						 After that it fixes the parts that caused the most errors.<br>
-						 It repeats this process until there is no further improvement.<br><br>
-						 <b>Another small note:</b><br>
-						 I just realized that I could had made a model for each one of the brands.<br>
-						 Which would had resulted on much more accurate results, but it is already finished.<br>
-						 <iframe src="Spanish_cars_dataset_model.html" width="100%" height="600px"></iframe>
+
+						 The second iteration gave these values:<br>
+						 Mean Absolute Error: 2300.1468424479167<br>
+						 R-squared: 0.5501037465364829<br>
+						 This means that it can now explain 55% of the ups and downs, aswell as on average being off the value for 2300 
 						 
-						
-						
+						 <iframe src="Spanish_cars_dataset_model.html" width="100%" height="600px"></iframe><br>
+						 <br>
+						 <br>
+
 						
 						
                     </div>
